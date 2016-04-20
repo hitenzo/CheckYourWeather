@@ -1,2 +1,87 @@
 ﻿body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#backgroundStyle {
+    width: 105%;
+    height: 105%;
+    background-size: 100% 100%;
+    position: fixed;
+    overflow: scroll;
+}
+
+.images {
+    width: 57%;
+    height: 100px;
+    min-width: 70px;
+}
+
+.content-info {
+    font: bold 19px Gotham Rounded;
+    color: white;
+    text-align: center;
+}
+
+.content-info div {
+    position: relative;
+    top: 30px;
+}
+
+.btn.btn-info.more {
+    line-height: 85px;
+    width: 28%;
+    height: 100%;
+    float: right;
+}
+
+.europe {
+    display: block;
+}
+
+.north-america {
+    display: none;
+}
+
+.south-america {
+    display: none;
+}
+
+.asia {
+    display: none;
+}
+
+.australia {
+    display: none;
+}
+
+.africa {
+    display: none;
+}
+
+.nav-pills li {
+    position: relative;
+    left: 20%;
+}
+
+.nav-pills li a {
+    background: white;
+}
+
+.list-group-item {
+    background: #2b2727;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.list-group-item:hover {
+    border: 3px solid orange;
+}
+
+#moreInfo {
+    height: 400px;
+    background: #2b2727;
+    position: relative;
+    border: 3px solid red;
+    border-radius: 5px;
 }
