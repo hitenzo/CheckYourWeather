@@ -1,6 +1,13 @@
-﻿body {
+﻿div {
     margin: 0px;
     padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    min-height: 1100px;
+    background: #2b2727;
 }
 
 #backgroundStyle {
@@ -28,60 +35,105 @@
     top: 30px;
 }
 
-.btn.btn-info.more {
-    line-height: 85px;
-    width: 28%;
-    height: 100%;
-    float: right;
+li.dropdown ul.dropdown-menu {
+    background: #101010;
 }
 
-.europe {
-    display: block;
+li.dropdown ul.dropdown-menu li a {
+    color: white;
+    font: bold 18px Helvetica Neue;
 }
 
-.north-america {
-    display: none;
-}
-
-.south-america {
-    display: none;
-}
-
-.asia {
-    display: none;
-}
-
-.australia {
-    display: none;
-}
-
-.africa {
-    display: none;
-}
-
-.nav-pills li {
-    position: relative;
-    left: 20%;
-}
-
-.nav-pills li a {
-    background: white;
-}
-
-.list-group-item {
-    background: #2b2727;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.list-group-item:hover {
-    border: 3px solid orange;
+li.dropdown ul.dropdown-menu li a:hover {
+    color: white;
+    font: bold 18px Helvetica Neue;
+    background: #e67300;
 }
 
 #moreInfo {
-    height: 400px;
-    background: #2b2727;
-    position: relative;
-    border: 3px solid red;
-    border-radius: 5px;
+    position: absolute;
+    top: 150px;
+    background: grey;
+    border-radius: 8px;
+    height: 700px;
+    padding: 30px;
 }
+
+#radar {
+    position: relative;
+    height: 150px;
+    left:15%;
+}
+
+.testing {
+    color: green;
+    font-family: Gotham Rounded;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+ .weatherImage {
+     height: 30px;
+     width: 20px;
+ }
+
+.row1 {
+    margin-bottom: 70px;
+    font-family: Gotham Rounded;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.row2 {
+    margin-bottom: 70px;
+    font-family: Gotham Rounded;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+#moreInfo div.typicalFont {
+    font-family: Gotham Rounded;
+    font-size: 19px;
+    font-weight: 500;
+    color: black;
+}
+
+#moreInfo div.row3 {
+    height: 45%;
+}
+
+#moreInfo .row3 .lastContainer {
+    height: 100%;
+    text-align: center;
+}
+
+ #conditions {
+     position: relative;
+     left: 40%;
+     font-family: Gotham Rounded;
+     font-size: 25px;
+ }
+
+ .panels {
+     position: relative;
+     width: 80%;
+     left: 10%;
+ }
+
+ .panel-body .row {
+     margin-bottom: 10px;
+ }
+
+ .dayRow {
+     font-family: Gotham Rounded;
+     font-size: 20px;
+     font-weight: 600;
+     color: orange;
+ }
+
+ .nightRow {
+     font-family: Gotham Rounded;
+     font-size: 20px;
+     font-weight: 600;
+     color: #00FFFF;
+ }

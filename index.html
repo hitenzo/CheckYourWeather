@@ -14,294 +14,174 @@
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search location">
                     </div>
                     <button type="submit" class="btn btn-info">Submit</button>
                 </form>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Continent <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li data-continent="europe" class="active"><a href="#">Europe</a></li>
+                            <li data-continent="north-america"><a href="#">North-america</a></li>
+                            <li data-continent="south-america"><a href="#">South-america</a></li>
+                            <li data-continent="asia"><a href="#">Asia</a></li>
+                            <li data-continent="australia"><a href="#">Australia</a></li>
+                            <li data-continent="africa"><a href="#">Africa</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-        
-    <br />
-    <br />
 
     <nav class="container">
-        <ul class="nav nav-pills">
-            <li data-continent="europe" role="presentation" class="active"><a href="#">Europe</a></li>
-            <li data-continent="north-america" role="presentation"><a href="#">North America</a></li>
-            <li data-continent="south-america" role="presentation"><a href="#">South America</a></li>
-            <li data-continent="asia" role="presentation"><a href="#">Asia</a></li>
-            <li data-continent="australia" role="presentation"><a href="#">Australia</a></li>
-            <li data-continent="africa" role="presentation"><a href="#">Africa</a></li>
-        </ul>
+        <div id="moreInfo" class="container">
+            <div class="row row1 typicalFont">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="navbar-form navbar-left form-group">
+                        Enter your location or a zip code: &nbsp;&nbsp;&nbsp;<input type="text" class="form-control" placeholder="Search location">
+                        <button type="submit" class="btn btn-info">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row row2 typicalFont">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div>
+                        <img id="radar" src="" />
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <div id="conditions">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row row3">
+                <div id="wraper">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 lastContainer">
+                        <div class="panel panel-primary panels">
+                            <div class="panel-heading">monday</div>
+                            <div class="panel-body">
+                                <div class="row dayRow">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        day
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tempSpace">
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 iconSpace">
+                                        <img src="" />
+                                    </div>
+
+                                </div>
+                                <div class="row nightRow">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        night
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tempSpace">
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 iconSpace">
+                                        <img src="" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 lastContainer">
+                        <div class="panel panel-primary panels">
+                            <div class="panel-heading">thuesday</div>
+                            <div class="panel-body">
+                                <div class="row dayRow">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        day
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tempSpace">
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 iconSpace">
+                                        <img src="" />
+                                    </div>
+
+                                </div>
+                                <div class="row nightRow">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        night
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tempSpace">
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 iconSpace">
+                                        <img src="" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 lastContainer">
+                        <div class="panel panel-primary panels">
+                            <div class="panel-heading">another day</div>
+                            <div class="panel-body">
+                                <div class="row dayRow">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        day
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tempSpace">
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 iconSpace">
+                                        <img src="" />
+                                    </div>
+
+                                </div>
+                                <div class="row nightRow">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        night
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tempSpace">
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 iconSpace">
+                                        <img src="" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
-
-    <br />
-    <br />
-
-    <nav class="container">
-        <ul class="list-group europe"> <!--list of european countires-->
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <img src="assets/clouds1.jpg" class="images" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="content-info">
-                            <div class="country">andora</div>
-                            <div>something city</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-info more" id="andora">more</button>
-                    </div>
-                </div>
-            </li>  <!--first country-->
-
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <img src="assets/clouds1.jpg" class="images" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="content-info">
-                            <div class="country">andora2</div>
-                            <div>something city</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-info more" id="andora">more</button>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <img src="assets/clouds1.jpg" class="images" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="content-info">
-                            <div class="country">andora3</div>
-                            <div>something city</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-info more" id="andora">more</button>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <img src="assets/clouds1.jpg" class="images" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="content-info">
-                            <div class="country">andora4</div>
-                            <div>something city</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-info more">more</button>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <img src="assets/clouds1.jpg" class="images" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="content-info">
-                            <div class="country">andora5</div>
-                            <div>something city</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-info more" id="andora">more</button>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li> <!--25 countries so far-->
-        </ul>
-
-        <ul class="list-group north-america"> <!--list of North American countires-->
-            <li class="list-group-item">
-            </li>  <!--first country-->
-
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li> <!--25 countries so far-->
-        </ul>
-
-        <ul class="list-group south-america"> <!--list of South American countires-->
-            <li class="list-group-item">
-            </li>  <!--first country-->
-
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li> <!--25 countries so far-->
-        </ul>
-
-        <ul class="list-group asia"> <!--list of Asian countires-->
-            <li class="list-group-item">
-            </li>  <!--first country-->
-
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li> <!--25 countries so far-->
-        </ul>
-
-        <ul class="list-group australia"> <!--list of Australian countires-->
-            <li class="list-group-item">
-            </li>  <!--first country-->
-
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li> <!--25 countries so far-->
-        </ul>
-
-        <ul class="list-group africa"> <!--list of African countires-->
-            <li class="list-group-item">
-            </li>  <!--first country-->
-
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li> <!--25 countries so far-->
-        </ul>
-    </nav>
-
-    <div id="moreInfo" class="container"></div>
-
-    <br />
-    <br />
 
             <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
             <script type="text/javascript" src="jqueryCode.js"></script>
