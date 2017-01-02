@@ -8,7 +8,7 @@
     var $moreInfo = $('#moreInfo');
     var $conditions = $('#conditions');
     var $radar = $('#radar');
-    var $key = '/keyInHere/'; //with backslashes in the front and behind
+    var $key = 'keyInHere';  //with backslashes in the front and behind
     var $fullForecast = $('#fullForecast');
     
     $continent.click(function () {
@@ -24,11 +24,43 @@
         $('.' + $continentToShow).css('display', 'block');
     });
 
-    $('.list-group-item').click(function () {
-        //move all tabs to the right except clicked
+    $('#searchBtn').click(function () {
+        //clear condition information
+        $conditions.html('');
         var $_this = $(this);
-        var $capital = '/' + $_this.find('div.content-info div.capital').html();
-        var $country = '/' + $_this.find('div.content-info div.country').html();
+        //find possible locations for searched place
+        
+        //http://api.wunderground.com/api/2f13866e28ea3de8/geolookup/q/warsaw.json
+        
+        $.ajax({
+            url: 'http://api.wunderground.com/api' + $key + 'geolookup/q' + $country + $capital + '.json',
+            dataType: "jsonp",
+            success: function (data) {
+                var $temp_c = data['current_observation']['temp_c'];
+                var $relative_humidity = data['current_observation']['relative_humidity'];
+                var $wind_kph = data['current_observation']['wind_kph'];
+                var $pressure_mb = data['current_observation']['pressure_mb'];
+                var $feelslike_c = data['current_observation']['feelslike_c'];
+                var $icon_url = data['current_observation']['icon_url'];
+                
+                if (Number($temp_c) > 15){
+                    $('.testing').css('color', 'yellow');
+                } else if (Number($temp_c) < 0) {
+                    $('.testing').css('color', 'blue');
+                }
+
+                $conditions.append(
+                    '<p class="testing">' + '<img src="' + $icon_url + '" />' + ' &nbsp;&nbsp;&nbsp;' + $temp_c + ' \xB0' + 'C' + '</p>' +
+                    '<p class="feelsLike">' + 'feels like: ' + $feelslike_c + ' \xB0' + 'C' + '</p>' +
+                    '<p>' + 'humidity:' + '&nbsp&nbsp;' + $relative_humidity + '</p>'
+                    /*'<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
+                    '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'*/
+                );
+            }
+        });
+        
+        //var $capital = '/' + 'Warsaw';
+        //var $country = '/' + 'Poland';
         $radar.attr({
             src: 'http://api.wunderground.com/api' + $key + 'radar/q' + $country + $capital + '.gif?width=200&height=150&radius=200&newmaps=1'
         });

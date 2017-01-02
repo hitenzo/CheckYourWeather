@@ -24,17 +24,6 @@ body {
     min-width: 70px;
 }
 
-.content-info {
-    font: bold 19px Gotham Rounded;
-    color: white;
-    text-align: center;
-}
-
-.content-info div {
-    position: relative;
-    top: 30px;
-}
-
 li.dropdown ul.dropdown-menu {
     background: #101010;
 }
@@ -78,10 +67,10 @@ li.dropdown ul.dropdown-menu li a:hover {
  }
 
 .row1 {
-    margin-bottom: 70px;
     font-family: Gotham Rounded;
     font-size: 19px;
     font-weight: 500;
+    min-height: 120px;
 }
 
 .row2 {
@@ -89,6 +78,7 @@ li.dropdown ul.dropdown-menu li a:hover {
     font-family: Gotham Rounded;
     font-size: 19px;
     font-weight: 500;
+    min-height: 160px;
 }
 
 #moreInfo div.typicalFont {
@@ -98,8 +88,14 @@ li.dropdown ul.dropdown-menu li a:hover {
     color: black;
 }
 
+.panels > img {
+    width: 30px;
+    height: 30px;
+}
+
 #moreInfo div.row3 {
     height: 45%;
+    padding-top: 50px;
 }
 
 #moreInfo .row3 .lastContainer {
