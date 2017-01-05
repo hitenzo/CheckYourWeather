@@ -1,112 +1,49 @@
-﻿$(document).ready(function () {
-
-    //DOM catche
-    var $image = $('#backgroundStyle');
-    var $continent = $('.dropdown-menu li');
-    var $height2 = $image.css('height');
-    var $height1 = $('.list-group-item').css('height');
-    var $moreInfo = $('#moreInfo');
-    var $conditions = $('#conditions');
-    var $radar = $('#radar');
-    var $key = 'keyInHere';  //with backslashes in the front and behind
-    var $fullForecast = $('#fullForecast');
+﻿var $moreInfo;
+var $conditions;
+var $placesContainer;
+var $radar;
+var $key;
     
-    $continent.click(function () {
-        //making dropdown menu interactive
-        var $currentTab = $('.dropdown-menu .active');
-        var $continentToClose = $currentTab.attr('data-continent');
-        $currentTab.removeClass('active');
-        $(this).addClass('active');
-
-        //switch continent from main menu
-        var $continentToShow = $(this).attr('data-continent');
-        $('.' + $continentToClose).css('display', 'none');
-        $('.' + $continentToShow).css('display', 'block');
-    });
+$(document).ready(function () {
+    //DOM catche
+    $moreInfo = $('#moreInfo');
+    $conditions = $('#conditions');
+    $placesContainer = $('#listOfPlaces');
+    $radar = $('#radar');
+    $key = 'keyInHere';
 
     $('#searchBtn').click(function () {
         //clear condition information
         $conditions.html('');
         var $_this = $(this);
+        var $place = $('#placeInput').val();
+        alert($place);
         //find possible locations for searched place
         
-        //http://api.wunderground.com/api/2f13866e28ea3de8/geolookup/q/warsaw.json
-        
         $.ajax({
-            url: 'http://api.wunderground.com/api' + $key + 'geolookup/q' + $country + $capital + '.json',
+            url: 'http://api.wunderground.com/api/' + $key + '/conditions/q/' + $place + '.json',
             dataType: "jsonp",
             success: function (data) {
-                var $temp_c = data['current_observation']['temp_c'];
-                var $relative_humidity = data['current_observation']['relative_humidity'];
-                var $wind_kph = data['current_observation']['wind_kph'];
-                var $pressure_mb = data['current_observation']['pressure_mb'];
-                var $feelslike_c = data['current_observation']['feelslike_c'];
-                var $icon_url = data['current_observation']['icon_url'];
-                
-                if (Number($temp_c) > 15){
-                    $('.testing').css('color', 'yellow');
-                } else if (Number($temp_c) < 0) {
-                    $('.testing').css('color', 'blue');
+                if (data['response']['results']) {
+                    DisplayLocations(data);
+                }else{
+                    DisplayConditions(data);
+                    DisplayForecast();
                 }
-
-                $conditions.append(
-                    '<p class="testing">' + '<img src="' + $icon_url + '" />' + ' &nbsp;&nbsp;&nbsp;' + $temp_c + ' \xB0' + 'C' + '</p>' +
-                    '<p class="feelsLike">' + 'feels like: ' + $feelslike_c + ' \xB0' + 'C' + '</p>' +
-                    '<p>' + 'humidity:' + '&nbsp&nbsp;' + $relative_humidity + '</p>'
-                    /*'<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
-                    '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'*/
-                );
-            }
-        });
-        
-        //var $capital = '/' + 'Warsaw';
-        //var $country = '/' + 'Poland';
-        $radar.attr({
-            src: 'http://api.wunderground.com/api' + $key + 'radar/q' + $country + $capital + '.gif?width=200&height=150&radius=200&newmaps=1'
-        });
-
-        //get current conditions from selected location from tabs and display those informations
-        $.ajax({
-            url: 'http://api.wunderground.com/api' + $key + 'conditions/q' + $country + $capital + '.json',
-            dataType: "jsonp",
-            success: function (data) {
-                var $temp_c = data['current_observation']['temp_c'];
-                var $relative_humidity = data['current_observation']['relative_humidity'];
-                var $wind_kph = data['current_observation']['wind_kph'];
-                var $pressure_mb = data['current_observation']['pressure_mb'];
-                var $feelslike_c = data['current_observation']['feelslike_c'];
-                var $icon_url = data['current_observation']['icon_url'];
-                
-                if (Number($temp_c) > 15){
-                    $('.testing').css('color', 'yellow');
-                } else if (Number($temp_c) < 0) {
-                    $('.testing').css('color', 'blue');
-                }
-
-                $conditions.append(
-                    '<p class="testing">' + '<img src="' + $icon_url + '" />' + ' &nbsp;&nbsp;&nbsp;' + $temp_c + ' \xB0' + 'C' + '</p>' +
-                    '<p class="feelsLike">' + 'feels like: ' + $feelslike_c + ' \xB0' + 'C' + '</p>' +
-                    '<p>' + 'humidity:' + '&nbsp&nbsp;' + $relative_humidity + '</p>'
-                    /*'<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
-                    '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'*/
-                );
             }
         });
 
-        //get 3 day forecast information and display it in forecast panels
+        //to change: get 3 day forecast information and display it in forecast panels
+        /*
         $.ajax({
-            url: 'http://api.wunderground.com/api' + $key + 'forecast/q' + $country + $capital + '.json',
+            url: 'http://api.wunderground.com/api/' + $key + '/forecast/q' + $country + $capital + '.json',
             dataType: "jsonp",
-            success: function (data2) {
-                var $forecast = data2['forecast']['txt_forecast']['forecastday'];
+            success: function (data) {
+                var $forecast = data['forecast']['txt_forecast']['forecastday'];
                 var $pat = /night/;
                 //var weather = forecast[0]['fcttext_metric'];
 
                 $('.panels').each(function (i, panel) {
-                    //TODO: test title for having word night in it to decide what row will get information
-                    //TODO: search forecast string for temperature and write it in right place
-                    //TODO: get icon and display it in right place
-                    //TODO: find out what days write to panels heading in forecast
                     var $isNight = $pat.test($forecast[i]['title']);
                     var $firstTemperature = '' + /\d+/.exec($forecast[2 * i]['fcttext_metric']);
                     var $secondTemperature = '' + /\d+/.exec($forecast[2 * i + 1]['fcttext_metric']);
@@ -128,9 +65,87 @@
                     }
                 });
             }
-        });
-
-
+        }); */
     });
-
 });
+
+function GetTabConditions(country, city, state) {
+    if (country == 'US') {
+        country = state;
+    }
+    var place = country + city;
+    $('#moreInfo').fadeIn();
+
+    //get current conditions from selected location from tabs and display those informations
+    $.ajax({
+        url: 'http://api.wunderground.com/api/' + $key + '/conditions/q' + place + '.json',
+        dataType: "jsonp",
+        success: function (data) {
+            DisplayConditions(data);
+            DisplayForecast();
+        }
+    }); 
+};
+
+function DisplayConditions(data) {
+    var $temp_c = data['current_observation']['temp_c'];
+    var $relative_humidity = data['current_observation']['relative_humidity'];
+    var $wind_kph = data['current_observation']['wind_kph'];
+    var $pressure_mb = data['current_observation']['pressure_mb'];
+    var $feelslike_c = data['current_observation']['feelslike_c'];
+    var $icon_url = data['current_observation']['icon_url'];
+    var $country;
+    var $city;
+    var $state;
+    
+    if (country == 'US') {
+        country = state;
+    }
+                
+    if (Number($temp_c) > 15){
+        $('.testing').css('color', 'yellow');
+    } else if (Number($temp_c) < 0) {
+        $('.testing').css('color', 'blue');
+    }
+
+    $('#conditions').append(
+        '<p class="testing">' + '<img src="' + $icon_url + '" />' + ' &nbsp;&nbsp;&nbsp;' + $temp_c + ' \xB0' + 'C' + '</p>' +
+        '<p class="feelsLike">' + 'feels like: ' + $feelslike_c + ' \xB0' + 'C' + '</p>' +
+        '<p>' + 'humidity:' + '&nbsp&nbsp;' + $relative_humidity + '</p>'
+        /*'<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
+        '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'*/
+    );
+            
+    $('#radar').attr({
+        src: 'http://api.wunderground.com/api/' + $key + '/radar/q' + $country + $city + '.gif?width=200&height=150&radius=200&newmaps=1'
+    });
+};
+
+function DisplayLocations(data) {
+    $('#moreInfo').fadeOut();
+    $('#listOfPlaces').fadeIn();
+    var $listOfPlaces = data['response']['results'];
+                
+    $.each($listOfPlaces, function () {
+        var $country = this['country_name'];
+        var $state = this['state'];
+        var $city = this['city'];
+        $('#listOfPlaces').append(
+            '<div class="panel panel-default"><div class="panel-body countryTab">' + $country + '</div>' +
+            '<div class="panel-footer cityTab">' + $city + '</div>' +
+            '<div class="panel-footer stateTab">' + $state + '</div></div>' + '<br>'
+        );
+    });
+                
+    $('#listOfPlaces > div').click(function(){
+        var $country = '/' + $(this).find('div.countryTab').html();
+        var $city = '/' + $(this).find('div.cityTab').html();
+        var $state = '/' + $(this).find('div.stateTab').html();
+        GetTabConditions($country, $city, $state);
+        $('#listOfPlaces').empty();
+    });
+};
+
+function DisplayForecast() {
+    
+};
