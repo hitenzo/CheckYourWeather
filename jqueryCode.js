@@ -17,8 +17,6 @@ $(document).ready(function () {
         $conditions.html('');
         var $_this = $(this);
         var $place = $('#placeInput').val();
-        alert($place);
-        //find possible locations for searched place
         
         $.ajax({
             url: 'http://api.wunderground.com/api/' + $key + '/conditions/q/' + $place + '.json',
@@ -28,44 +26,10 @@ $(document).ready(function () {
                     DisplayLocations(data);
                 }else{
                     DisplayConditions(data);
-                    DisplayForecast();
+                    DisplayForecast($place);
                 }
             }
         });
-
-        //to change: get 3 day forecast information and display it in forecast panels
-        /*
-        $.ajax({
-            url: 'http://api.wunderground.com/api/' + $key + '/forecast/q' + $country + $capital + '.json',
-            dataType: "jsonp",
-            success: function (data) {
-                var $forecast = data['forecast']['txt_forecast']['forecastday'];
-                var $pat = /night/;
-                //var weather = forecast[0]['fcttext_metric'];
-
-                $('.panels').each(function (i, panel) {
-                    var $isNight = $pat.test($forecast[i]['title']);
-                    var $firstTemperature = '' + /\d+/.exec($forecast[2 * i]['fcttext_metric']);
-                    var $secondTemperature = '' + /\d+/.exec($forecast[2 * i + 1]['fcttext_metric']);
-                    var $firstIconUrl = $forecast[2 * i]['icon_url'];
-                    var $secondIconUrl = $forecast[2 * i + 1]['icon_url'];
-
-
-                    if (!$isNight) {
-                        $(this).find('.panel-body .dayRow .tempSpace').html($firstTemperature + ' \xB0' + 'C'); //received temperature
-                        $(this).find('.panel-body .nightRow .tempSpace').html($secondTemperature + ' \xB0' + 'C');
-                        $(this).find('.panel-heading').html($forecast[2 * i]['title']);
-                        $(this).find('.panel-body .dayRow .iconSpace img').attr('src', $firstIconUrl);
-                        $(this).find('.panel-body .nightRow .iconSpace img').attr('src', $secondIconUrl);
-                    } else {
-                        $(this).find('.panel-body .dayRow .tempSpace').html($secondTemperature + ' \xB0' + 'C');
-                        $(this).find('.panel-body .nightRow .tempSpace').html($firstTemperature + ' \xB0' + 'C');
-                        $(this).find('.panel-body .dayRow .iconSpace img').attr('src', $secondIconUrl);
-                        $(this).find('.panel-body .nightRow .iconSpace img').attr('src', $firstIconUrl);
-                    }
-                });
-            }
-        }); */
     });
 });
 
@@ -73,16 +37,17 @@ function GetTabConditions(country, city, state) {
     if (country == 'US') {
         country = state;
     }
-    var place = country + city;
+    var place = country + '/' + city;
+    alert(place);
     $('#moreInfo').fadeIn();
 
     //get current conditions from selected location from tabs and display those informations
     $.ajax({
-        url: 'http://api.wunderground.com/api/' + $key + '/conditions/q' + place + '.json',
+        url: 'http://api.wunderground.com/api/' + $key + '/conditions/q/' + place + '.json',
         dataType: "jsonp",
         success: function (data) {
             DisplayConditions(data);
-            DisplayForecast();
+            DisplayForecast(place);
         }
     }); 
 };
@@ -94,13 +59,13 @@ function DisplayConditions(data) {
     var $pressure_mb = data['current_observation']['pressure_mb'];
     var $feelslike_c = data['current_observation']['feelslike_c'];
     var $icon_url = data['current_observation']['icon_url'];
-    var $country;
+    /*var $country;
     var $city;
     var $state;
     
     if (country == 'US') {
         country = state;
-    }
+    } */
                 
     if (Number($temp_c) > 15){
         $('.testing').css('color', 'yellow');
@@ -115,10 +80,10 @@ function DisplayConditions(data) {
         /*'<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
         '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'*/
     );
-            
+    /*        
     $('#radar').attr({
         src: 'http://api.wunderground.com/api/' + $key + '/radar/q' + $country + $city + '.gif?width=200&height=150&radius=200&newmaps=1'
-    });
+    }); */
 };
 
 function DisplayLocations(data) {
@@ -131,21 +96,59 @@ function DisplayLocations(data) {
         var $state = this['state'];
         var $city = this['city'];
         $('#listOfPlaces').append(
-            '<div class="panel panel-default"><div class="panel-body countryTab">' + $country + '</div>' +
+            '<div class="panel panel-default">' +
+            '<div class="panel-body countryTab">' + $country + '</div>' +
             '<div class="panel-footer cityTab">' + $city + '</div>' +
-            '<div class="panel-footer stateTab">' + $state + '</div></div>' + '<br>'
+            '<div class="panel-footer stateTab">' + $state + '</div>' +
+            '</div>' + '<br>'
         );
     });
                 
     $('#listOfPlaces > div').click(function(){
-        var $country = '/' + $(this).find('div.countryTab').html();
-        var $city = '/' + $(this).find('div.cityTab').html();
-        var $state = '/' + $(this).find('div.stateTab').html();
+        var $country = '' + $(this).find('div.countryTab').html();
+        var $city = '' + $(this).find('div.cityTab').html();
+        var $state = '' + $(this).find('div.stateTab').html();
         GetTabConditions($country, $city, $state);
         $('#listOfPlaces').empty();
     });
 };
 
-function DisplayForecast() {
-    
+function DisplayForecast(place) {
+    $.ajax({
+        url: 'http://api.wunderground.com/api/' + $key + '/forecast/q/' + place + '.json',
+        dataType: "jsonp",
+        success: function (data) {
+            var $forecast = data['forecast']['txt_forecast']['forecastday'];
+            var $pat = /night/;
+            //var weather = forecast[0]['fcttext_metric'];
+
+            $('.panels').each(function (i, panel) {
+                var $isNight = $pat.test($forecast[i]['title']);
+                var $firstTemperature = /-\d+/.exec($forecast[2 * i + 2]['fcttext_metric']);
+                if ($firstTemperature==null) {
+                    $firstTemperature = '' + /\d+/.exec($forecast[2 * i + 2]['fcttext_metric']);
+                }
+                var $secondTemperature = /-\d+/.exec($forecast[2 * i + 3]['fcttext_metric']);
+                if ($secondTemperature==null) {
+                    $secondTemperature = '' + /\d+/.exec($forecast[2 * i + 3]['fcttext_metric']);
+                }
+                var $firstIconUrl = $forecast[2 * i + 2]['icon_url'];
+                var $secondIconUrl = $forecast[2 * i + 3]['icon_url'];
+
+
+                if (!$isNight) {
+                    $(this).find('.panel-body .dayRow .tempSpace').html($firstTemperature + ' \xB0' + 'C'); //received temperature
+                    $(this).find('.panel-body .nightRow .tempSpace').html($secondTemperature + ' \xB0' + 'C');
+                    $(this).find('.panel-heading').html($forecast[2 * i + 2]['title']);
+                    $(this).find('.panel-body .dayRow .iconSpace img').attr('src', $firstIconUrl);
+                    $(this).find('.panel-body .nightRow .iconSpace img').attr('src', $secondIconUrl);
+                } else {
+                    $(this).find('.panel-body .dayRow .tempSpace').html($secondTemperature + ' \xB0' + 'C');
+                    $(this).find('.panel-body .nightRow .tempSpace').html($firstTemperature + ' \xB0' + 'C');
+                    $(this).find('.panel-body .dayRow .iconSpace img').attr('src', $secondIconUrl);
+                    $(this).find('.panel-body .nightRow .iconSpace img').attr('src', $firstIconUrl);
+                }
+            });
+        }
+    });
 };
