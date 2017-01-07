@@ -25,7 +25,7 @@ $(document).ready(function () {
                 if (data['response']['results']) {
                     DisplayLocations(data);
                 }else{
-                    DisplayConditions(data);
+                    DisplayConditions(data, $place);
                     DisplayForecast($place);
                 }
             }
@@ -34,11 +34,10 @@ $(document).ready(function () {
 });
 
 function GetTabConditions(country, city, state) {
-    if (country == 'US') {
+    if (country == 'USA') {
         country = state;
     }
     var place = country + '/' + city;
-    alert(place);
     $('#moreInfo').fadeIn();
 
     //get current conditions from selected location from tabs and display those informations
@@ -46,26 +45,19 @@ function GetTabConditions(country, city, state) {
         url: 'http://api.wunderground.com/api/' + $key + '/conditions/q/' + place + '.json',
         dataType: "jsonp",
         success: function (data) {
-            DisplayConditions(data);
+            DisplayConditions(data, place);
             DisplayForecast(place);
         }
     }); 
 };
 
-function DisplayConditions(data) {
+function DisplayConditions(data, place) {
     var $temp_c = data['current_observation']['temp_c'];
     var $relative_humidity = data['current_observation']['relative_humidity'];
     var $wind_kph = data['current_observation']['wind_kph'];
     var $pressure_mb = data['current_observation']['pressure_mb'];
     var $feelslike_c = data['current_observation']['feelslike_c'];
     var $icon_url = data['current_observation']['icon_url'];
-    /*var $country;
-    var $city;
-    var $state;
-    
-    if (country == 'US') {
-        country = state;
-    } */
                 
     if (Number($temp_c) > 15){
         $('.testing').css('color', 'yellow');
@@ -76,14 +68,14 @@ function DisplayConditions(data) {
     $('#conditions').append(
         '<p class="testing">' + '<img src="' + $icon_url + '" />' + ' &nbsp;&nbsp;&nbsp;' + $temp_c + ' \xB0' + 'C' + '</p>' +
         '<p class="feelsLike">' + 'feels like: ' + $feelslike_c + ' \xB0' + 'C' + '</p>' +
-        '<p>' + 'humidity:' + '&nbsp&nbsp;' + $relative_humidity + '</p>'
-        /*'<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
-        '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'*/
+        '<p>' + 'humidity:' + '&nbsp&nbsp;' + $relative_humidity + '</p>' +
+        '<p>' + 'wind: ' + $wind_kph + ' km/h' + '</p>' +
+        '<p>' + 'pressure: ' + $pressure_mb + ' hPa' + '</p>'
     );
-    /*        
+            
     $('#radar').attr({
-        src: 'http://api.wunderground.com/api/' + $key + '/radar/q' + $country + $city + '.gif?width=200&height=150&radius=200&newmaps=1'
-    }); */
+        src: 'http://api.wunderground.com/api/' + $key + '/radar/q/' + place + '.gif?width=200&height=150&radius=200&newmaps=1'
+    }); 
 };
 
 function DisplayLocations(data) {
@@ -100,14 +92,17 @@ function DisplayLocations(data) {
             '<div class="panel-body countryTab">' + $country + '</div>' +
             '<div class="panel-footer cityTab">' + $city + '</div>' +
             '<div class="panel-footer stateTab">' + $state + '</div>' +
+            '<div class="panel-footer">' +
+            '<button type="submit" class="btn btn-info tabLocation" data-country="' + $country + '" data-city="' + $city + '" data-state="' + $state + '">Search</button>' +
+            '</div>' +
             '</div>' + '<br>'
         );
     });
                 
-    $('#listOfPlaces > div').click(function(){
-        var $country = '' + $(this).find('div.countryTab').html();
-        var $city = '' + $(this).find('div.cityTab').html();
-        var $state = '' + $(this).find('div.stateTab').html();
+    $('#listOfPlaces > div > div > button').click(function(){
+        var $country = '' + $(this).attr('data-country');
+        var $city = '' + $(this).attr('data-city');
+        var $state = '' + $(this).attr('data-state');
         GetTabConditions($country, $city, $state);
         $('#listOfPlaces').empty();
     });
@@ -120,7 +115,6 @@ function DisplayForecast(place) {
         success: function (data) {
             var $forecast = data['forecast']['txt_forecast']['forecastday'];
             var $pat = /night/;
-            //var weather = forecast[0]['fcttext_metric'];
 
             $('.panels').each(function (i, panel) {
                 var $isNight = $pat.test($forecast[i]['title']);
